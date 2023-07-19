@@ -24,6 +24,18 @@ const App = () => {
 
   const addNote = (event) => {
     event.preventDefault()
+
+    if(newNote === '') {
+      setErrorMessage(
+        `Note must not be null`
+      )
+      setTimeout(() => {
+        setErrorMessage('')
+      }, 5000)
+
+      return
+    }
+
     const noteObject = {
       content: newNote,
       important: Math.random() < 0.5,
@@ -53,12 +65,28 @@ const App = () => {
       })
       .catch(error => {
         setErrorMessage(
-          `Note '${note.content}' was already removed from server`
+          `Note '${note.content}' is not on the server`
         )
         setTimeout(() => {
-          setErrorMessage(null)
+          setErrorMessage('')
         }, 5000)
         setNotes(notes.filter(n => n.id !== id))
+      })
+  }
+
+  const deleteNote = (id) => {
+    noteService
+      .remove(id)
+      .then(response => {
+        setNotes(notes.filter(note => note.id !== id))
+      })
+      .catch(error => {
+        setErrorMessage(
+          `Note with id ${id} is not on the server`
+        )
+        setTimeout(() => {
+          setErrorMessage('')
+        }, 5000)
       })
   }
 
@@ -81,6 +109,7 @@ const App = () => {
             key={note.id} 
             note={note}
             toggleImportance={() => toggleImportanceOf(note.id)}
+            deleteNote={() => deleteNote(note.id)}
           />
         )}
       </ul>
