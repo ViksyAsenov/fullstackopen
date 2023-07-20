@@ -1,0 +1,3 @@
+[submodule "part3/thephonebook"]
+	path = part3/thephonebook
+	url = https://github.com/ViksyAsenov/thephonebook-backend
