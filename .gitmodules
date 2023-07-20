@@ -1,6 +1,3 @@
 [submodule "part3/thephonebook"]
 	path = part3/thephonebook
 	url = https://github.com/ViksyAsenov/thephonebook-backend
-[submodule "examples/notes_backend"]
-	path = examples/notes_backend
-	url = https://github.com/ViksyAsenov/notes-backend
