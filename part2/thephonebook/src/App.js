@@ -51,7 +51,7 @@ const App = () => {
           .catch(error => {
             const newNotification = {
               ...notification, 
-              message: `Information of ${newPerson.name} has already been removed from server`, 
+              message: `${error.response.data.error}`, 
               positive: false
             }
             setNotification(newNotification)
@@ -60,7 +60,6 @@ const App = () => {
               setNotification({...defaultNotification})
             }, 3000)
 
-            setPersons(persons.filter(person => person.id !== personExist.id))
           })
       }
 
@@ -73,18 +72,32 @@ const App = () => {
         setPersons(persons.concat(returnedPerson))
         setNewName('')
         setNewNumber('')
-      })
 
-    const newNotification = {
-      ...notification, 
-      message: `Added ${newPerson.name}`, 
-      positive: true
-    }
-    setNotification(newNotification)
-    
-    setTimeout(() => {
-      setNotification({...defaultNotification})
-    }, 3000)
+        const newNotification = {
+          ...notification, 
+          message: `Added ${returnedPerson.name}`, 
+          positive: true
+        }
+        setNotification(newNotification)
+        
+        setTimeout(() => {
+          setNotification({...defaultNotification})
+        }, 3000)
+      })
+      .catch(error => {
+        const newNotification = {
+          ...notification, 
+          message: `${error.response.data.error}`, 
+          positive: false
+        }
+        setNotification(newNotification)
+        
+        setTimeout(() => {
+          setNotification({...defaultNotification})
+        }, 3000)
+        
+        return
+      })
   }
 
   const handleNameChange = (e) => {
