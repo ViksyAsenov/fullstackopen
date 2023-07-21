@@ -31,7 +31,7 @@ const App = () => {
       )
       setTimeout(() => {
         setErrorMessage('')
-      }, 5000)
+      }, 3000)
 
       return
     }
@@ -47,7 +47,15 @@ const App = () => {
         setNotes(notes.concat(returnedNote))
         setNewNote('')
       })
-      .catch(error => console.log(error.message))
+      .catch(error => {
+        setErrorMessage(`${error.response.data.error}`)
+        
+        setTimeout(() => {
+          setErrorMessage('')
+        }, 3000)
+
+        return
+      })
   }
 
   const handleNoteChange = (event) => {
@@ -62,15 +70,19 @@ const App = () => {
     noteService
       .update(id, changedNote)
       .then(returnedNote => {
-        setNotes(notes.map(note => note.id !== id ? note : returnedNote))
+        if(returnedNote) {
+          setNotes(notes.map(note => note.id !== id ? note : returnedNote))
+        } else {
+          throw new Error(`Note doesn't exist`)
+        }
       })
       .catch(error => {
-        setErrorMessage(
-          `Note '${note.content}' is not on the server`
-        )
+        setErrorMessage(`${error.message}`)
+
         setTimeout(() => {
           setErrorMessage('')
-        }, 5000)
+        }, 3000)
+
         setNotes(notes.filter(n => n.id !== id))
       })
   }
@@ -78,17 +90,15 @@ const App = () => {
   const deleteNote = (id) => {
     noteService
       .remove(id)
-      .then(response => {
-        setNotes(notes.filter(note => note.id !== id))
-      })
       .catch(error => {
-        setErrorMessage(
-          `Note with id ${id} is not on the server`
-        )
+        setErrorMessage(`${error.response.data.error}`)
+
         setTimeout(() => {
           setErrorMessage('')
-        }, 5000)
+        }, 3000)
       })
+
+      setNotes(notes.filter(note => note.id !== id))
   }
 
   const notesToShow = showAll
