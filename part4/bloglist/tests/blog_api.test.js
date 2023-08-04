@@ -23,23 +23,23 @@ describe('get blogs', () => {
       .expect(200)
       .expect('Content-Type', /application\/json/)
   })
-  
+
   test('a specific blog is within the returned blogs', async () => {
     const response = await api.get('/api/blogs')
-  
+
     const titles = response.body.map(r => r.title)
     expect(titles).toContain('Dojo Mojo House')
   })
-  
+
   test('all blogs are returned', async () => {
     const response = await api.get('/api/blogs')
-  
+
     expect(response.body).toHaveLength(helper.initialBlogs.length)
   })
-  
+
   test('unique identifier property of a blog is id', async () => {
     const response = await api.get('/api/blogs')
-  
+
     expect(response.body[0].id).toBeDefined()
   })
 })
@@ -74,38 +74,38 @@ describe('post blogs', () => {
       url: 'http://user.bg.com',
       likes: 34
     }
-  
+
     await api
       .post('/api/blogs')
       .send(newBlog)
       .set(headers)
       .expect(201)
       .expect('Content-Type', /application\/json/)
-  
+
     const blogsAtEnd = await helper.blogsInDB()
     expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length + 1)
-  
+
     const titles = blogsAtEnd.map(b => b.title)
-  
+
     expect(titles).toContain('a new blog')
   })
-  
+
   test('a blog without likes property can be added and likes will have default value of 0', async () => {
     const newBlog = {
       title: 'a new blog',
       author: 'user',
       url: 'http://user.bg.com',
     }
-  
+
     await api
       .post('/api/blogs')
       .send(newBlog)
       .set(headers)
       .expect(201)
       .expect('Content-Type', /application\/json/)
-  
+
     const blogsAtEnd = await helper.blogsInDB()
-  
+
     const addedBlog = blogsAtEnd.find(b => b.title === 'a new blog')
     expect(addedBlog.likes).toBe(0)
   })
@@ -115,13 +115,13 @@ describe('post blogs', () => {
       author: 'user',
       likes: 54
     }
-  
+
     await api
       .post('/api/blogs')
       .send(newBlog)
       .set(headers)
       .expect(400)
-  
+
     const blogsAtEnd = await helper.blogsInDB()
     expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length)
   })
