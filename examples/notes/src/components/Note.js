@@ -1,10 +1,14 @@
+/* eslint-disable react/prop-types */
+import React from 'react'
+
 const Note = ({ note, toggleImportance, deleteNote }) => {
   const label = note.important
-    ? 'make not important' : 'make important'
+    ? 'make not important'
+    : 'make important'
 
   return (
     <li className="note">
-      {note.content} 
+      {note.content}
       <button onClick={toggleImportance}>{label}</button>
       <button onClick={deleteNote}>delete</button>
     </li>
