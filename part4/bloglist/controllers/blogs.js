@@ -34,6 +34,12 @@ blogsRouter.put('/:id', userExtractor, async (request, response) => {
   const user = request.user
   const blogToUpdate = await Blog.findById(request.params.id)
 
+  if (body.likes !== undefined && Object.keys(body).length === 1) {
+    blogToUpdate.likes = body.likes
+    let updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blogToUpdate, { new: true , runValidators: true, context: 'query' })
+    return response.json(updatedBlog)
+  }
+
   if(!(blogToUpdate.user._id.toString() === user._id.toString())) {
     return response.status(401).json({ error: 'Unauthorized' })
   }
