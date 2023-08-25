@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react'
 
 const Note = ({ note, toggleImportance, deleteNote }) => {
@@ -7,9 +6,9 @@ const Note = ({ note, toggleImportance, deleteNote }) => {
     : 'make important'
 
   return (
-    <li className="note">
-      {note.content}
-      <button onClick={toggleImportance}>{label}</button>
+    <li className='note'>
+      <span>{note.content}</span>
+      <button onClick={toggleImportance} id='toggle-importance-button'>{label}</button>
       <button onClick={deleteNote}>delete</button>
     </li>
   )

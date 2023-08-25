@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 
-// eslint-disable-next-line react/prop-types
 const NoteForm = ({ createNote, setErrorMessage }) => {
   const [note, setNote] = useState('')
 
@@ -19,7 +19,7 @@ const NoteForm = ({ createNote, setErrorMessage }) => {
 
     createNote({
       content: note,
-      important: false
+      important: true
     })
 
     setNote('')
@@ -33,11 +33,17 @@ const NoteForm = ({ createNote, setErrorMessage }) => {
         <input
           value={note}
           onChange={({ target }) => setNote(target.value)}
+          placeholder='write note content here'
         />
-        <button type="submit">save</button>
+        <button type='submit'>save</button>
       </form>
     </div>
   )
+}
+
+NoteForm.propTypes = {
+  createNote: PropTypes.func.isRequired,
+  setErrorMessage: PropTypes.func.isRequired
 }
 
 export default NoteForm

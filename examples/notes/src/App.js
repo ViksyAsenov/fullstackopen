@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from 'react'
+import { React, useState, useEffect, useRef } from 'react'
 import Note from './components/Note'
 import Notification from './components/Error'
 import Footer from './components/Footer'
@@ -13,6 +13,7 @@ const App = () => {
   const [showAll, setShowAll] = useState(true)
   const [errorMessage, setErrorMessage] = useState('')
   const [user, setUser] = useState(null)
+  const noteFormRef = useRef()
 
   useEffect(() => {
     noteService
@@ -31,12 +32,35 @@ const App = () => {
     }
   }, [])
 
+  const handleLogin = async (userObject) => {
+    try {
+      const user = await loginService.login(userObject)
+
+      setUser(user)
+      noteService.setToken(user.token)
+      window.localStorage.setItem('loggedNoteAppUser', JSON.stringify(user))
+    } catch (exception) {
+      setErrorMessage(`${exception.response.data.error}`)
+
+      setTimeout(() => {
+        setErrorMessage('')
+      }, 3000)
+    }
+  }
+
+  const handleLogout = () => {
+    window.localStorage.removeItem('loggedNoteAppUser')
+    noteService.setToken(null)
+    setUser(null)
+  }
+
   const createNote = async (noteObject) => {
     try {
       const returnedNote = await noteService.create(noteObject)
+      noteFormRef.current.toggleVisibility()
       setNotes(notes.concat(returnedNote))
-    } catch (excepetion) {
-      setErrorMessage(`${excepetion.response.data.error}`)
+    } catch (exception) {
+      setErrorMessage(`${exception.response.data.error}`)
 
       setTimeout(() => {
         setErrorMessage('')
@@ -56,10 +80,10 @@ const App = () => {
         setNotes(notes.filter(note => note.id !== id))
         throw new Error('Note doesn\'t exist')
       }
-    } catch (excepetion) {
-      excepetion.response.data.error !== undefined
-        ? setErrorMessage(`${excepetion.response.data.error}`)
-        : setErrorMessage(`${excepetion.message}`)
+    } catch (exception) {
+      exception.response.data.error !== undefined
+        ? setErrorMessage(`${exception.response.data.error}`)
+        : setErrorMessage(`${exception.message}`)
 
       setTimeout(() => {
         setErrorMessage('')
@@ -71,37 +95,15 @@ const App = () => {
     try {
       await noteService.remove(id)
       setNotes(notes.filter(note => note.id !== id))
-    } catch (excepetion) {
-      excepetion.response.data.error !== undefined
-        ? setErrorMessage(`${excepetion.response.data.error}`)
-        : setErrorMessage(`${excepetion.message}`)
+    } catch (exception) {
+      exception.response.data.error !== undefined
+        ? setErrorMessage(`${exception.response.data.error}`)
+        : setErrorMessage(`${exception.message}`)
 
       setTimeout(() => {
         setErrorMessage('')
       }, 3000)
     }
-  }
-
-  const handleLogin = async (userObject) => {
-    try {
-      const user = await loginService.login(userObject)
-
-      setUser(user)
-      noteService.setToken(user.token)
-      window.localStorage.setItem('loggedNoteAppUser', JSON.stringify(user))
-    } catch (excepetion) {
-      setErrorMessage(`${excepetion.response.data.error}`)
-
-      setTimeout(() => {
-        setErrorMessage('')
-      }, 3000)
-    }
-  }
-
-  const handleLogout = () => {
-    window.localStorage.removeItem('loggedNoteAppUser')
-    noteService.setToken(null)
-    setUser(null)
   }
 
   const notesToShow = showAll
@@ -123,7 +125,7 @@ const App = () => {
       {user && <div>
         <p>{user.name} logged in <button onClick={handleLogout}>logout</button></p>
 
-        <Togglable buttonLabel='new note'>
+        <Togglable buttonLabel='new note' ref={noteFormRef}>
           <NoteForm
             createNote={createNote}
             setErrorMessage={setErrorMessage}
@@ -143,6 +145,7 @@ const App = () => {
           <Note
             key={note.id}
             note={note}
+            user={user}
             toggleImportance={() => toggleImportanceOf(note.id)}
             deleteNote={() => deleteNote(note.id)}
           />
