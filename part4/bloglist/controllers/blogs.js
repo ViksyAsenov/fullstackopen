@@ -26,6 +26,7 @@ blogsRouter.post('/', userExtractor, async (request, response) => {
     author: body.author || false,
     url: body.url,
     likes: body.likes || 0,
+    comments: body.comments || [],
     user: user.id
   })
 
@@ -42,6 +43,12 @@ blogsRouter.put('/:id', userExtractor, async (request, response) => {
 
   const user = request.user
   const blogToUpdate = await Blog.findById(request.params.id)
+
+  if(body.comments !== undefined && Object.keys(body).length === 1) {
+    blogToUpdate.comments = body.comments
+    let updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blogToUpdate, { new: true , runValidators: true, context: 'query' })
+    return response.json(updatedBlog)
+  }
 
   if (body.likes !== undefined && Object.keys(body).length === 1) {
     blogToUpdate.likes = body.likes
