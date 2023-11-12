@@ -5,7 +5,11 @@ import { useState } from 'react'
 
 const Authors = (props) => {
   const result = useQuery(ALL_AUTHORS)
-  const [editAuthor] = useMutation(EDIT_AUTHOR)
+  const [editAuthor] = useMutation(EDIT_AUTHOR, {
+    onError: (error) => {
+      console.log(error)
+    },
+  })
   const [name, setName] = useState('')
   const [born, setBorn] = useState('')
 
@@ -50,17 +54,21 @@ const Authors = (props) => {
         </tbody>
       </table>
 
-      <h2>set birthyear</h2>
-      <form onSubmit={submit}>
-        <div>
-          <Select options={selectOptions} onChange={({ value }) => setName(value)} />
-        </div>
-        <div>
-          born
-          <input type="number" value={born} onChange={({ target }) => setBorn(target.value)} />
-        </div>
-        <button type="submit">update author</button>
-      </form>
+      {props.user && (
+        <>
+          <h2>set birthyear</h2>
+          <form onSubmit={submit}>
+            <div>
+              <Select options={selectOptions} onChange={({ value }) => setName(value)} />
+            </div>
+            <div>
+              born
+              <input type="number" value={born} onChange={({ target }) => setBorn(target.value)} />
+            </div>
+            <button type="submit">update author</button>
+          </form>
+        </>
+      )}
     </div>
   )
 }
