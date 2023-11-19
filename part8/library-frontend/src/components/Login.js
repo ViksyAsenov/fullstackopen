@@ -48,7 +48,7 @@ const Login = ({ show, setUser, setPage }) => {
           password
           <input type="password" value={password} onChange={({ target }) => setPassword(target.value)} />
         </div>
-        <button type="submit">create book</button>
+        <button type="submit">login</button>
       </form>
     </div>
   )

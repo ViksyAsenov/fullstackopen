@@ -9,7 +9,7 @@ const Recommendation = ({ show }) => {
   })
 
   const { data: booksByGenreData } = useQuery(BOOKS_BY_GENRE, {
-    variables: { genre: result.data?.me.favouriteGenre || '' },
+    variables: { genre: result.data?.me?.favouriteGenre || '' },
   })
 
   if (!show) {
