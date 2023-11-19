@@ -81,7 +81,7 @@ const App = () => {
 
       <Books show={page === 'books'} />
 
-      <Recommendation show={page === 'recommendation'} />
+      <Recommendation show={page === 'recommendation'} user={user} />
 
       <Login show={page === 'login'} setUser={setUser} setPage={setPage} />
 
