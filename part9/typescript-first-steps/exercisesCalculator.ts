@@ -1,3 +1,5 @@
+import parseArgs from "./utils/exercisesCalcParseArgs"
+
 interface CalculatedData {
   periodLength: number,
   trainingDays: number,
@@ -58,4 +60,13 @@ const calculateExercises = (days: number[], target: number): CalculatedData => {
   }
 }
 
-console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2))
+try {
+  const { target, days } = parseArgs(process.argv);
+  console.log(calculateExercises(days, target))
+} catch(error: unknown) {
+  let errorMessage = 'Something bad happened.';
+  if(error instanceof Error) {
+    errorMessage += ' Error: ' + error.message;
+  }
+  console.log(errorMessage);
+}
