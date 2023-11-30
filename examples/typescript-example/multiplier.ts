@@ -15,11 +15,11 @@ const parseArgs = (args: string[]): MultiplyValues => {
   } else {
     throw new Error('Provided values were not numbers');
   }
-}
+};
 
 const multiplicator = (a: number, b: number, printText: string) => {
-    console.log(printText, a * b);
-}
+  console.log(printText, a * b);
+};
 
 try {
   const { value1, value2 } = parseArgs(process.argv);
