@@ -44,7 +44,7 @@ const calculateTrainingInfo = (trainingHoursPerDay: number[], targetHoursPerDay:
     return { average, success, rating, ratingDescription };
 };
 
-const calculateExercises = (days: number[], target: number): CalculatedData => {
+export const calculateExercises = (days: number[], target: number): CalculatedData => {
   const periodLength = days.length;
   const trainingDays = days.filter(day => day > 0).length;
   const { average, success, rating, ratingDescription } = calculateTrainingInfo(days, target);

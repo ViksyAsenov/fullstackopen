@@ -15,6 +15,6 @@ const parseArgs = (args: string[]): InputValues => {
   } else {
     throw new Error('Provided values were not numbers');
   }
-}
+};
 
-export default parseArgs
+export default parseArgs;

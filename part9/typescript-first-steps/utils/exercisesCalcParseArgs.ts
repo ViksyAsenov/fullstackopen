@@ -3,22 +3,22 @@ interface InputValues {
   days: number[]
 }
 
-const isArrayOnlyNumbers = (array: string[]) => {
-  return array.every(element => !isNaN(Number(element)))
-}
+export const isArrayOnlyNumbers = (array: (string | number | object)[] ) => {
+  return array.every(element => !isNaN(Number(element)));
+};
 
 const parseArgs = (args: string[]): InputValues => {
-  const [, , target, ...days] = args
+  const [, , target, ...days] = args;
 
-  if(!target || days.length === 0) throw new Error('Not enough args')
+  if(!target || days.length === 0) throw new Error('Not enough args');
   if(!isNaN(Number(target)) && isArrayOnlyNumbers(days)) {
     return {
       target: Number(target),
       days: days.map(d => Number(d))
-    }
+    };
   } else {
-    throw new Error('Provided values were not numbers')
+    throw new Error('Provided values were not numbers');
   }  
-}
+};
 
-export default parseArgs
+export default parseArgs;
