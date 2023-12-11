@@ -18,9 +18,8 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  const newDiaryEntry = toNewDiaryEntry(req.body);
-
   try {
+    const newDiaryEntry = toNewDiaryEntry(req.body);
     const addedEntry = diaryService.addDiary(newDiaryEntry);
     res.json(addedEntry);
   } catch (error: unknown) {
