@@ -1,6 +1,6 @@
 import { DiaryEntry } from "../src/types";
-import toNewDiaryEntry
- from "../src/utils";
+import toNewDiaryEntry from "../src/utils";
+
 const data = [
   {
       "id": 1,
