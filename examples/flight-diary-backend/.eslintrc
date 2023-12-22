@@ -25,7 +25,6 @@
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "tsconfigRootDir": "examples/flight-diary/",
     "project": "./tsconfig.json"
   }
 }
