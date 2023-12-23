@@ -16,6 +16,21 @@ interface DiaryFormProps {
   setErrorMessage: React.Dispatch<React.SetStateAction<string>>;
 }
 
+enum Weather {
+  sunny = 'sunny',
+  rainy = 'rainy',
+  cloudy = 'cloudy',
+  stormy = 'stormy',
+  windy = 'windy'
+}
+
+enum Visibility {
+  great = 'great',
+  good = 'good',
+  ok ='ok',
+  poor = 'poor'
+}
+
 const isString = (text: unknown): text is string => {
   return typeof text === 'string' || text instanceof String
 }
@@ -104,20 +119,84 @@ const DiaryForm = (props: DiaryFormProps) => {
         </div>
 
         <div>
-          weather
-          <input 
-            value={weather}
+          weather {" "}
+
+          {Weather.sunny}
+          <input
+            type="radio"
+            value={Weather.sunny}
+            checked={weather === Weather.sunny}
+            onChange={({ target }) => setWeather(target.value)}
+          />
+
+          {Weather.rainy}
+          <input
+            type="radio"
+            value={Weather.rainy}
+            checked={weather === Weather.rainy}
+            onChange={({ target }) => setWeather(target.value)}
+          />
+
+          {Weather.cloudy}
+          <input
+            type="radio"
+            value={Weather.cloudy}
+            checked={weather === Weather.cloudy}
+            onChange={({ target }) => setWeather(target.value)}
+          />
+
+          {Weather.stormy}
+          <input
+            type="radio"
+            value={Weather.stormy}
+            checked={weather === Weather.stormy}
+            onChange={({ target }) => setWeather(target.value)}
+          />
+
+          {Weather.windy}
+          <input
+            type="radio"
+            value={Weather.windy}
+            checked={weather === Weather.windy}
             onChange={({ target }) => setWeather(target.value)}
           />
         </div>
 
         <div>
-          visibility
-          <input 
-            value={visibility}
+          visibility {" "}
+
+          {Visibility.great}
+          <input
+            type="radio"
+            value={Visibility.great}
+            checked={visibility === Visibility.great}
             onChange={({ target }) => setVisibility(target.value)}
           />
-        </div>  
+
+          {Visibility.good}
+          <input
+            type="radio"
+            value={Visibility.good}
+            checked={visibility === Visibility.good}
+            onChange={({ target }) => setVisibility(target.value)}
+          />
+
+          {Visibility.ok}
+          <input
+            type="radio"
+            value={Visibility.ok}
+            checked={visibility === Visibility.ok}
+            onChange={({ target }) => setVisibility(target.value)}
+          />
+
+          {Visibility.poor}
+          <input
+            type="radio"
+            value={Visibility.poor}
+            checked={visibility === Visibility.poor}
+            onChange={({ target }) => setVisibility(target.value)}
+          />
+        </div> 
 
         <div>
           comment
