@@ -8,8 +8,10 @@ The main focus is on building single page applications with ReactJS that use RES
 The course covers testing, configuration and environment management, the use of databases for storing the application’s data amongst other things.
 
 [Fullstackopen Certificate](https://studies.cs.helsinki.fi/stats/api/certificate/fullstackopen/en/a32396a2f5fd6e4da5c323381a382500)
+
 [GraphQL Certificate](https://studies.cs.helsinki.fi/stats/api/certificate/fs-graphql/en/1325c8ea7fc7942f672a8c2ee643efd8)
-[Typescript Certificate](https://studies.cs.helsinki.fi/stats/api/certificate/fs-typescript/en/e844f7d253f43fb8a7e5114be69b7d9c)
+
+[TypesSript Certificate](https://studies.cs.helsinki.fi/stats/api/certificate/fs-typescript/en/e844f7d253f43fb8a7e5114be69b7d9c)
 
 ### [Part 0 - Fundamentals of Web apps](./part0)
 
