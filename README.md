@@ -28,3 +28,5 @@ The course covers testing, configuration and environment management, the use of 
 ### [Part 7 - React router, custom hooks, styling app with CSS and webpack](./part7)
 
 ### [Part 8 - GraphQL](./part8)
+
+### [Part 9 - TypesSript](./part9)
