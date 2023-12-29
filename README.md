@@ -11,7 +11,7 @@ The course covers testing, configuration and environment management, the use of 
 
 [GraphQL Certificate](https://studies.cs.helsinki.fi/stats/api/certificate/fs-graphql/en/1325c8ea7fc7942f672a8c2ee643efd8)
 
-[TypesSript Certificate](https://studies.cs.helsinki.fi/stats/api/certificate/fs-typescript/en/e844f7d253f43fb8a7e5114be69b7d9c)
+[TypeScript Certificate](https://studies.cs.helsinki.fi/stats/api/certificate/fs-typescript/en/e844f7d253f43fb8a7e5114be69b7d9c)
 
 ### [Part 0 - Fundamentals of Web apps](./part0)
 
@@ -31,4 +31,4 @@ The course covers testing, configuration and environment management, the use of 
 
 ### [Part 8 - GraphQL](./part8)
 
-### [Part 9 - TypesSript](./part9)
+### [Part 9 - TypeScript](./part9)
