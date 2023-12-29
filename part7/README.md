@@ -24,5 +24,5 @@ $ npm run server
 npm start
 ```
 
-You can then access the frontend on : [http://localhost:3000/](http://localhost:3000/)
+You can then access the frontend on : [http://localhost:3000/](http://localhost:3000/) or [here](https://bloglist-backend-jk9y.onrender.com/)
 
