@@ -17,7 +17,7 @@ const HealthCheckEntry = ({ entry, diagnoses }: Props) => {
         {entry.diagnosisCodes?.map(diagnosisCode => {
           const name = diagnoses?.find(diagnose => diagnose.code === diagnosisCode)?.name;
           
-          return <li>{diagnosisCode} {name}</li>;
+          return <li key={diagnosisCode}>{diagnosisCode} {name}</li>;
         })}
       </ul>
 

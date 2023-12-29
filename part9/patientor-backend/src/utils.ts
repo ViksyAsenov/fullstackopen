@@ -90,12 +90,12 @@ const parseSpecialist = (specialist: unknown): string => {
   return specialist;
 };
 
-const parseDiagnosisCodes = (object: unknown): Array<DiagnosisEntry['code']> =>  {
-  if (!object || typeof object !== 'object' || !('diagnosisCodes' in object)) {
+const parseDiagnosisCodes = (diagnosisCodes: unknown): Array<DiagnosisEntry['code']> =>  {
+  if (!diagnosisCodes || !Array.isArray(diagnosisCodes)) {
     return [] as Array<DiagnosisEntry['code']>;
   }
 
-  return object.diagnosisCodes as Array<DiagnosisEntry['code']>;
+  return diagnosisCodes as Array<DiagnosisEntry['code']>;
 };
 
 const parseType = (type: unknown): EntryType => {
@@ -107,7 +107,7 @@ const parseType = (type: unknown): EntryType => {
 };
 
 const parseHealthCheckRating = (healthCheckRating: unknown): HealthCheckRating => {
-  if(!healthCheckRating || !isNumber(healthCheckRating) || !isHealthCheckRating(healthCheckRating)) {
+  if(!isNumber(healthCheckRating) || !isHealthCheckRating(healthCheckRating)) {
     throw new Error('Incorrect or missing healthCheckRating');
   }
 
