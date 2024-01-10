@@ -1,10 +1,9 @@
-[submodule "part03/thephonebook"]
-	path = part03/thephonebook
-	url = https://github.com/ViksyAsenov/thephonebook-backend
-
 [submodule "examples/notes-backend"]
 	path = examples/notes-backend
 	url = https://github.com/ViksyAsenov/notes-backend
 [submodule "part11/pokedex-cicd"]
 	path = part11/pokedex-cicd
 	url = https://github.com/ViksyAsenov/pokedex-cicd
+[submodule "part03/thephonebook-backend"]
+	path = part03/thephonebook-backend
+	url = https://github.com/ViksyAsenov/thephonebook-backend
