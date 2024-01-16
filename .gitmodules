@@ -7,3 +7,6 @@
 [submodule "part03/thephonebook-backend"]
 	path = part03/thephonebook-backend
 	url = https://github.com/ViksyAsenov/thephonebook-backend
+[submodule "part11/bloglist-cicd"]
+	path = part11/bloglist-cicd
+	url = https://github.com/ViksyAsenov/bloglist-cicd
