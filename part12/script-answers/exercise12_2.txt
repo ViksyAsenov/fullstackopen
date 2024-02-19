@@ -1,0 +1,7 @@
+Script started on 2024-02-05 16:26:48+02:00 [TERM="xterm-256color" TTY="/dev/pts/5" COLUMNS="70" LINES="35"]
+[?2004h]0;viksy@DESKTOP-5E6DFM8: ~[01;32mviksy@DESKTOP-5E6DFM8[00m:[01;34m~[00m$ echo ""H"e"l"l"o"
+[?2004lHello
+[?2004h]0;viksy@DESKTOP-5E6DFM8: ~[01;32mviksy@DESKTOP-5E6DFM8[00m:[01;34m~[00m$ exit
+[?2004lexit
+
+Script done on 2024-02-05 16:27:00+02:00 [COMMAND_EXIT_CODE="0"]
