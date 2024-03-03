@@ -36,3 +36,5 @@ The course covers testing, configuration and environment management, the use of 
 ### [Part 9 - TypeScript](./part09)
 
 ### [Part 11 - CI/CD](./part11)
+
+### [Part 12 - Containers](./part12)
