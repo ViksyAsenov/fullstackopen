@@ -62,12 +62,14 @@ singleRouter.put("/", async (req, res) => {
   }
 
   const newText = req.body.text;
+  const newDone = req.body.done;
 
-  if (!newText) {
+  if (!newText || !newDone) {
     return res.sendStatus(400);
   }
 
   todo.text = newText;
+  todo.done = newDone;
   await todo.save();
   res.json(todo);
 });
