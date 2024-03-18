@@ -12,6 +12,9 @@ COPY --from=test-stage /usr/src/app /usr/src/app
 
 WORKDIR /usr/src/app
 
-ENV PORT=3001 REACT_APP_BACKEND_URL=http://localhost:3000
+ENV REACT_APP_BACKEND_URL=http://localhost:8080/api
+RUN npm run build
 
-CMD npm start
+RUN npm install -g serve
+
+CMD PORT=3001 serve -s build
