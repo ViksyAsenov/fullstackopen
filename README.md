@@ -15,6 +15,8 @@ The course covers testing, configuration and environment management, the use of 
 
 [CI/CD Certificate](https://studies.cs.helsinki.fi/stats/api/certificate/fs-cicd/en/64c05cff93c11cb5311ec321d9df868d)
 
+[Containerization Certificate](https://studies.cs.helsinki.fi/stats/api/certificate/fs-containers/en/f29e884e9be12c6d56d2072b25552b5b)
+
 ### [Part 0 - Fundamentals of Web apps](./part0)
 
 ### [Part 1 - Introduction to React](./part01)
