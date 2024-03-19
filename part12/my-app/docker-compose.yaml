@@ -1,0 +1,26 @@
+version: "3.8"
+name: my-app-prod
+
+services:
+  my-app-frontend-prod:
+    image: my-app-frontend-prod
+    container_name: my-app-frontend-nginx-prod
+    build:
+      context: ./my-app-frontend
+      dockerfile: Dockerfile
+  my-app-backend-prod:
+    image: my-app-backend-prod
+    container_name: my-app-backend-nginx-prod
+    build:
+      context: ./my-app-backend
+      dockerfile: Dockerfile
+  nginx:
+    image: nginx:1.20.1
+    container_name: my-app-reverse-proxy-prod
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:80
+    depends_on:
+      - my-app-frontend-prod
+      - my-app-backend-prod

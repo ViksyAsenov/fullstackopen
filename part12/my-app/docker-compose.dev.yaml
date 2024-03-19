@@ -1,0 +1,32 @@
+version: "3.8"
+name: my-app-dev
+
+services:
+  my-app-frontend-dev:
+    image: my-app-frontend-dev
+    container_name: my-app-frontend-nginx-dev
+    build:
+      context: ./my-app-frontend
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./my-app-frontend:/usr/src/app
+    environment:
+      - BACKEND_URL=http://localhost:8080/api/
+  my-app-backend-dev:
+    image: my-app-backend-dev
+    container_name: my-app-backend-nginx-dev
+    build:
+      context: ./my-app-backend
+      dockerfile: dev.Dockerfile
+    volumes:
+      - ./my-app-backend:/usr/src/app
+  nginx:
+    image: nginx:1.20.1
+    container_name: my-app-reverse-proxy-dev
+    volumes:
+      - ./nginx.dev.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:80
+    depends_on:
+      - my-app-frontend-dev
+      - my-app-backend-dev
