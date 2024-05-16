@@ -45,11 +45,15 @@ router.put("/:id", noteFinder, async (req, res) => {
   const note = req.note;
 
   if (note) {
-    note.important = req.body.important;
+    try {
+      note.important = req.body.important;
 
-    await note.save();
+      await note.save();
 
-    res.json(note);
+      res.json(note);
+    } catch (error) {
+      res.status(400).json({ error });
+    }
   } else {
     res.sendStatus(404);
   }
