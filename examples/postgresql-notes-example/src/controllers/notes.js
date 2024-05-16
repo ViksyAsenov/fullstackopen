@@ -1,17 +1,29 @@
-const router = require("express").Router();
+const notesRouter = require("express").Router();
 
-const { Note } = require("../models");
+const { Note, User } = require("../models");
 const noteFinder = require("../util/middleware/noteFinder");
+const tokenExtractor = require("../util/middleware/tokenExtractor");
 
-router.get("/", async (req, res) => {
-  const notes = await Note.findAll();
+notesRouter.get("/", async (req, res) => {
+  const notes = await Note.findAll({
+    attributes: { exclude: ["userId"] },
+    include: {
+      model: User,
+      attributes: ["name"],
+    },
+  });
 
   res.json(notes);
 });
 
-router.post("/", async (req, res) => {
+notesRouter.post("/", tokenExtractor, async (req, res) => {
   try {
-    const note = await Note.create(req.body);
+    const user = await User.findByPk(req.decodedToken.id);
+    const note = await Note.create({
+      ...req.body,
+      userId: user.id,
+      date: new Date(),
+    });
 
     res.json(note);
   } catch (error) {
@@ -19,7 +31,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.get("/:id", noteFinder, async (req, res) => {
+notesRouter.get("/:id", noteFinder, async (req, res) => {
   const note = req.note;
 
   if (note) {
@@ -29,7 +41,7 @@ router.get("/:id", noteFinder, async (req, res) => {
   }
 });
 
-router.delete("/:id", noteFinder, async (req, res) => {
+notesRouter.delete("/:id", noteFinder, async (req, res) => {
   const note = req.note;
 
   if (note) {
@@ -41,7 +53,7 @@ router.delete("/:id", noteFinder, async (req, res) => {
   }
 });
 
-router.put("/:id", noteFinder, async (req, res) => {
+notesRouter.put("/:id", noteFinder, async (req, res) => {
   const note = req.note;
 
   if (note) {
@@ -59,4 +71,4 @@ router.put("/:id", noteFinder, async (req, res) => {
   }
 });
 
-module.exports = router;
+module.exports = notesRouter;
