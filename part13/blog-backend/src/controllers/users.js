@@ -1,8 +1,15 @@
 const usersRouter = require("express").Router();
-const { User } = require("../models");
+const { User, Blog } = require("../models");
+const BadInput = require("../util/errors/BadInput");
 
 usersRouter.get("/", async (req, res) => {
-  const users = await User.findAll({});
+  const users = await User.findAll({
+    attributes: { exclude: ["createdAt", "updatedAt"] },
+    include: {
+      model: Blog,
+      attributes: { exclude: ["userId"] },
+    },
+  });
 
   res.json(users);
 });
@@ -13,7 +20,7 @@ usersRouter.post("/", async (req, res) => {
 
     res.json(user);
   } catch (error) {
-    res.status(400).json({ error });
+    throw new BadInput(error);
   }
 });
 

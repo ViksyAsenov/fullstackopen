@@ -1,7 +1,8 @@
 class BadInput extends Error {
-  constructor(message) {
-    super(message);
+  constructor(error) {
+    super("Bad Input!");
     this.name = "BadInput";
+    this.errors = error.errors;
   }
 }
 

@@ -1,33 +1,50 @@
 const blogsRouter = require("express").Router();
-const { Blog } = require("../models");
+const { Blog, User } = require("../models");
 const BadInput = require("../util/errors/BadInput");
+const InvalidUser = require("../util/errors/InvalidUser");
+const tokenExtractor = require("../util/middleware/tokenExtractor");
 
 blogsRouter.get("/", async (req, res) => {
-  const blogs = await Blog.findAll();
+  const blogs = await Blog.findAll({
+    attributes: { exclude: ["userId"] },
+    include: {
+      model: User,
+      attributes: ["name", "username"],
+    },
+  });
 
   res.json(blogs);
 });
 
-blogsRouter.post("/", async (req, res) => {
+blogsRouter.post("/", tokenExtractor, async (req, res) => {
   try {
-    const blog = await Blog.create(req.body);
+    const user = await User.findByPk(req.decodedToken.id);
+
+    const blog = await Blog.create({
+      ...req.body,
+      userId: user.id,
+    });
 
     res.json(blog);
   } catch (error) {
-    throw new BadInput();
+    throw new BadInput(error);
   }
 });
 
-blogsRouter.delete("/:id", async (req, res) => {
+blogsRouter.delete("/:id", tokenExtractor, async (req, res) => {
   const blog = await Blog.findByPk(req.params.id);
 
-  if (blog) {
-    await blog.destroy();
-
-    res.sendStatus(204);
-  } else {
-    res.sendStatus(404);
+  if (!blog) {
+    return res.sendStatus(404);
   }
+
+  if (blog.userId !== req.decodedToken.id) {
+    throw new InvalidUser("This blog wasn't created by you");
+  }
+
+  await blog.destroy();
+
+  res.sendStatus(204);
 });
 
 blogsRouter.put("/:id", async (req, res) => {
@@ -41,7 +58,7 @@ blogsRouter.put("/:id", async (req, res) => {
 
       res.json(blog);
     } catch (error) {
-      throw new BadInput();
+      throw new BadInput(error);
     }
   } else {
     res.sendStatus(404);
