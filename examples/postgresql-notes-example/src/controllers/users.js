@@ -1,5 +1,8 @@
 const usersRouter = require("express").Router();
 
+const tokenExtractor = require("../util/middleware/tokenExtractor");
+const isAdmin = require("../util/middleware/isAdmin");
+
 const { User, Note } = require("../models");
 
 usersRouter.get("/", async (req, res) => {
@@ -30,6 +33,22 @@ usersRouter.get("/:id", async (req, res) => {
     res.json(user);
   } else {
     res.sendStatus(404);
+  }
+});
+
+usersRouter.put("/:username", tokenExtractor, isAdmin, async (req, res) => {
+  const user = await User.findOne({
+    where: {
+      username: req.params.username,
+    },
+  });
+
+  if (user) {
+    user.disabled = req.body.disabled;
+    await user.save();
+    res.json(user);
+  } else {
+    res.status(404).end();
   }
 });
 
