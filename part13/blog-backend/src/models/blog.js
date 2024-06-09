@@ -26,11 +26,23 @@ Blog.init(
       type: DataTypes.INTEGER,
       defaultValue: 0,
     },
+    year: {
+      type: DataTypes.INTEGER,
+      validate: {
+        isCurrentYearOrEarlier(value) {
+          if (value < 1991 || value > new Date().getFullYear()) {
+            throw new Error(
+              "Year cannot be greater than the current or older than 1991"
+            );
+          }
+        },
+      },
+    },
   },
   {
     sequelize,
     underscored: true,
-    timestamps: false,
+    timestamps: true,
     modelName: "blog",
   }
 );
