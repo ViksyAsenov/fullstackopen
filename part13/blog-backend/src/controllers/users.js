@@ -5,13 +5,39 @@ const BadInput = require("../util/errors/BadInput");
 usersRouter.get("/", async (req, res) => {
   const users = await User.findAll({
     attributes: { exclude: ["createdAt", "updatedAt"] },
-    include: {
-      model: Blog,
-      attributes: { exclude: ["userId"] },
-    },
   });
 
   res.json(users);
+});
+
+usersRouter.get("/:id", async (req, res) => {
+  const where = {};
+
+  if (req.query.read) {
+    where.read = req.query.read === "true";
+  }
+
+  const user = await User.findByPk(req.params.id, {
+    include: [
+      {
+        model: Blog,
+        attributes: { exclude: ["userId"] },
+      },
+      {
+        model: Blog,
+        as: "marked_blogs",
+        attributes: {
+          exclude: ["userId", "createdAt", "updatedAt"],
+        },
+        through: {
+          attributes: ["id", "read"],
+          where,
+        },
+      },
+    ],
+  });
+
+  res.json(user);
 });
 
 usersRouter.post("/", async (req, res) => {
