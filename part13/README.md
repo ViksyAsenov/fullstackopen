@@ -22,7 +22,7 @@ Before you begin, ensure you have the following software and resources:
 
 2. **Navigate to the project repository:**
    ```sh
-   cd part13/blogs-backend
+   cd part13/blog-backend
    ```
 3. **Install dependencies:**
    ```sh
