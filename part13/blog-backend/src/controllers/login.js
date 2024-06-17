@@ -1,5 +1,5 @@
 const loginRouter = require("express").Router();
-const { User } = require("../models");
+const { User, Session } = require("../models");
 const jwt = require("jsonwebtoken");
 const { secret } = require("../util/config");
 const InvalidUser = require("../util/errors/InvalidUser");
@@ -13,6 +13,10 @@ loginRouter.post("/", async (req, res) => {
     },
   });
 
+  if (user.disabled) {
+    throw new InvalidUser("Your account has been disabled");
+  }
+
   const isPasswordCorrect = password === "secret";
 
   if (!user || !isPasswordCorrect) {
@@ -25,6 +29,17 @@ loginRouter.post("/", async (req, res) => {
   };
 
   const token = jwt.sign(userForToken, secret);
+
+  await Session.destroy({
+    where: {
+      userId: user.id,
+    },
+  });
+
+  await Session.create({
+    userId: user.id,
+    token,
+  });
 
   res.json({ token, username, name: user.name });
 });

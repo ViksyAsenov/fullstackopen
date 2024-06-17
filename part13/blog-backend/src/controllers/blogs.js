@@ -6,6 +6,7 @@ const { Blog, User } = require("../models");
 const BadInput = require("../util/errors/BadInput");
 const InvalidUser = require("../util/errors/InvalidUser");
 const tokenExtractor = require("../util/middleware/tokenExtractor");
+const checkSession = require("../util/middleware/checkSession");
 
 blogsRouter.get("/", async (req, res) => {
   const where = {};
@@ -34,7 +35,7 @@ blogsRouter.get("/", async (req, res) => {
   res.json(blogs);
 });
 
-blogsRouter.post("/", tokenExtractor, async (req, res) => {
+blogsRouter.post("/", tokenExtractor, checkSession, async (req, res) => {
   try {
     const user = await User.findByPk(req.decodedToken.id);
 
@@ -49,7 +50,7 @@ blogsRouter.post("/", tokenExtractor, async (req, res) => {
   }
 });
 
-blogsRouter.delete("/:id", tokenExtractor, async (req, res) => {
+blogsRouter.delete("/:id", tokenExtractor, checkSession, async (req, res) => {
   const blog = await Blog.findByPk(req.params.id);
 
   if (!blog) {
@@ -65,7 +66,7 @@ blogsRouter.delete("/:id", tokenExtractor, async (req, res) => {
   res.sendStatus(204);
 });
 
-blogsRouter.put("/:id", async (req, res) => {
+blogsRouter.put("/:id", tokenExtractor, checkSession, async (req, res) => {
   const blog = await Blog.findByPk(req.params.id);
 
   if (blog) {

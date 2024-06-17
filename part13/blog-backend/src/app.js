@@ -9,6 +9,7 @@ const usersRouter = require("./controllers/users");
 const authorsRouter = require("./controllers/authors");
 const loginRouter = require("./controllers/login");
 const readingListRouter = require("./controllers/readingList");
+const logoutRouter = require("./controllers/logout");
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use("/api/blogs", blogsRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/authors", authorsRouter);
 app.use("/api/login", loginRouter);
+app.use("/api/logout", logoutRouter);
 app.use("/api/readingList", readingListRouter);
 
 app.use(unknownEndpoint);

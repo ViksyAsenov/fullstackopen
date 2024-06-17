@@ -17,6 +17,10 @@ const errorHandler = (error, req, res, next) => {
     return res.status(401).json({ error: error.message });
   }
 
+  if (error.name === "InvalidSession") {
+    return res.status(401).json({ error: error.message });
+  }
+
   return res.status(500).json({ error: "Something went wrong!" });
 };
 
