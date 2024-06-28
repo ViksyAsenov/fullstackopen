@@ -17,6 +17,8 @@ The course covers testing, configuration and environment management, the use of 
 
 [Containerization Certificate](https://studies.cs.helsinki.fi/stats/api/certificate/fs-containers/en/f29e884e9be12c6d56d2072b25552b5b)
 
+[Relational Databases](https://studies.cs.helsinki.fi/stats/api/certificate/fs-psql/en/04fed0cdef664b8c0295529700840583)
+
 ### [Part 0 - Fundamentals of Web apps](./part0)
 
 ### [Part 1 - Introduction to React](./part01)
@@ -40,3 +42,5 @@ The course covers testing, configuration and environment management, the use of 
 ### [Part 11 - CI/CD](./part11)
 
 ### [Part 12 - Containers](./part12)
+
+### [Part 13 - Relational Databases](./part13)
